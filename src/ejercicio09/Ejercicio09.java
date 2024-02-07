@@ -4,27 +4,40 @@ import java.util.Random;
 
 public class Ejercicio09 {
 
-	public static boolean matrizMagica (int tabla[][]) {
-		boolean magica=true;
-		int suma=0;
-		int suma2;
+	static boolean matrizMagica(int tabla[][]) {
+		boolean magica = true;
+		int suma1=0;
+		int suma2=0;
+		int contador = 1;
 		
-		for (int valor : tabla[0]) {
-			suma+=valor;
+		for(int j=0; j< tabla[0].length; j++) {
+			suma1 += tabla[0][j];
 		}
 		
-		//Compruebo las filas
-		while (magica) {
-		for (int fila[] : tabla) {
-			suma2=0;
-			for (int valor : fila) {
-				suma2+=valor;
+		while(contador<tabla.length && magica) {
+			suma2 = 0;
+			for(int j=0; j<tabla[contador].length; j++) {
+				suma2 += tabla[contador][j];
 			}
-			if (suma2!=suma) {
-				magica=false;
+			if(suma2 != suma1) {
+				magica = false;				
+			}
+			contador++;
+		}
+		
+		if(magica) {
+			contador = 0;
+			while(contador<tabla.length && magica) {
+				suma2 = 0;
+				for(int j=0; j<tabla[contador].length; j++) {
+					suma2 += tabla[j][contador];
+				}
+				if(suma2 != suma1) {
+					magica = false;				
+				}
+				contador++;
 			}
 		}
-	}
 		
 		return magica;
 	}
@@ -34,7 +47,7 @@ public class Ejercicio09 {
 		int tabla[][] = new int[5][5];
 
 		// Booleano para saber si la tabla es simétrica
-		boolean simetria;
+		boolean magica;
 
 		// Random para generar posiciones aleatorias
 		Random rand = new Random();
@@ -45,6 +58,12 @@ public class Ejercicio09 {
 				tabla[i][j] = rand.nextInt(0, 1001);
 			}
 		}
+		
+		//Llamo a la funcion
+		magica = matrizMagica(tabla);
+		
+		//Muestro si la tabla es mágica
+		System.out.println("¿Es la matriz mágica? " + magica);
 
 	}
 
